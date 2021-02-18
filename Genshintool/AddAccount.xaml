@@ -1,0 +1,96 @@
+﻿<Window x:Class="Genshintool.AddAccount"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Genshintool"
+        mc:Ignorable="d"
+        Title="Genshin Impact accounts manager-Add accounts" Height="450" Width="800" ResizeMode="NoResize">
+    <Window.Background>
+        <ImageBrush ImageSource="images/background.png"/>
+    </Window.Background>
+    <Grid>
+        <Menu x:Name="window_menu" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="792" Background="#FF1F2123" FontWeight="Bold">
+            <!--<Button Content="⇦" Width="42" Foreground="White" Background="#FF1F2123" BorderBrush="{x:Null}" Height="32" FontSize="18"/>-->
+            <MenuItem x:Name="options" Header="Options" Height="32" Width="69" Foreground="White">
+                <MenuItem x:Name="save" Header="Save changes" Background="#FF1F2123" BorderBrush="Black" Click="save_Click"/>
+                <MenuItem x:Name="exit" Header="Quit without save" Click="exit_Click" Background="#FF1F2123" BorderBrush="Black"/>
+            </MenuItem>
+            <MenuItem x:Name="account_info_option" Header="Account info" Height="32" Width="85" Click="account_info_option_Click" Foreground="White"/>
+            <MenuItem x:Name="account_characters_option" Header="Characters" Height="32" Width="80" Click="account_characters_option_Click" Foreground="White"/>
+
+        </Menu>
+        <Grid x:Name="account_info_grid" Visibility="Visible" Margin="0,32,0,0">
+            <Grid.Background>
+                <SolidColorBrush Color="White" Opacity="0.75"/>
+            </Grid.Background>
+
+            <Label x:Name="name_label" Content="Name" HorizontalAlignment="Left" Margin="23,26,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="account_name_tb" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="23" Margin="23,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="218"/>
+            <Label x:Name="mail_label" Content="Email" HorizontalAlignment="Left" Margin="23,98,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="account_mail_tb" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="23" Margin="23,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="218"/>
+            <Label x:Name="desc_label_" Content="Description" HorizontalAlignment="Left" Margin="23,185,0,0" VerticalAlignment="Top" Width="83"/>
+            <TextBox x:Name="account_desc_tb" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="116" Margin="23,216,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="475"/>
+            <Image x:Name="account_gender" HorizontalAlignment="Left" Height="157" Margin="581,27,0,0" VerticalAlignment="Top" Width="118" Stretch="UniformToFill"/>
+            <ComboBox x:Name="account_gender_cb" HorizontalAlignment="Left" Margin="581,189,0,0" VerticalAlignment="Top" Width="118" SelectionChanged="account_gender_cb_SelectionChanged"/>
+            <Label x:Name="world_level" Content="World level:" HorizontalAlignment="Left" Margin="280,26,0,0" VerticalAlignment="Top" Width="87"/>
+            <TextBox x:Name="account_worldlevel_tb" HorizontalAlignment="Left" Height="23" Margin="280,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="218"/>
+            <Label x:Name="pass_label" Content="Password:" HorizontalAlignment="Left" Margin="280,98,0,0" VerticalAlignment="Top" Width="87"/>
+            <TextBox x:Name="account_pass_tb" HorizontalAlignment="Left" Height="23" Margin="280,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="218"/>
+            <Button x:Name="save_now" Content="💾" HorizontalAlignment="Left" Margin="725,333,0,0" VerticalAlignment="Top" Width="36" Foreground="#FFCCCCCC" Click="save_Click" Height="34">
+                <Button.Background>
+                    <SolidColorBrush Color="#FF1F2123" Opacity="0.85"/>
+                </Button.Background>
+            </Button>
+        </Grid>
+        <Grid x:Name="account_characters_grid" Visibility="Hidden" Margin="0,32,0,0">
+            <Grid.Background>
+                <SolidColorBrush Color="White" Opacity="0.75"/>
+            </Grid.Background>
+            <ListView x:Name="account_characters_list_lv" HorizontalAlignment="Left" Height="219" Margin="403,76,0,0" VerticalAlignment="Top" Width="358" SelectionChanged="account_characters_list_lv_SelectionChanged">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Icon}"  Stretch="UniformToFill" Height="75" Width="75"/>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Name}" Margin="10,0,0,0" FontWeight="Bold" FontSize="14"/>
+                                <TextBlock Text="{Binding Level}" Margin="10,10,0,0"/>
+                                <TextBlock Text="{Binding Constellation}"  Margin="10,0,0,0"/>
+                            </StackPanel>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <ComboBox x:Name="character_name_cb" HorizontalAlignment="Left" Margin="180,76,0,0" VerticalAlignment="Top" Width="197" SelectionChanged="character_name_cb_SelectionChanged"/>
+            <Label x:Name="character_level_label" Content="Level:" HorizontalAlignment="Left" Margin="223,124,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="character_level_tb" HorizontalAlignment="Left" Height="23" Margin="267,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="110"/>
+            <Label x:Name="character_constellation_label" Content="Constellation:" HorizontalAlignment="Left" Margin="180,175,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="character_constellation_tb" HorizontalAlignment="Left" Height="23" Margin="267,178,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="110"/>
+            <Label x:Name="tittle" Content="ACCOUNT CHARACTERS" HorizontalAlignment="Left" Margin="467,26,0,0" VerticalAlignment="Top" Width="235" Height="34" FontSize="20"/>
+            <Button x:Name="add_character_bt" Content="Save" HorizontalAlignment="Left" Margin="302,242,0,0" VerticalAlignment="Top" Width="75" Click="add_character_bt_Click" Foreground="#FFCCCCCC">
+                <Button.Background>
+                    <SolidColorBrush Color="#FF1F2123" Opacity="0.85"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="new_character_bt" Content="New" HorizontalAlignment="Left" Margin="222,242,0,0" VerticalAlignment="Top" Width="75" Click="delete_character_bt_Click" Foreground="#FFCCCCCC">
+                <Button.Background>
+                    <SolidColorBrush Color="#FF1F2123" Opacity="0.85"/>
+                </Button.Background>
+            </Button>
+            <RadioButton x:Name="character_five_rb" Content="Five stars" HorizontalAlignment="Left" Margin="180,45,0,0" VerticalAlignment="Top" IsChecked="True" Checked="character_five_rb_Checked"/>
+            <RadioButton x:Name="character_four_rb" Content="Four stars" HorizontalAlignment="Left" Margin="267,45,0,0" VerticalAlignment="Top"  Checked="character_four_rb_Checked"/>
+            <Border BorderThickness="1" BorderBrush="#FF000000" HorizontalAlignment="Left" Height="135" VerticalAlignment="Top" Width="137" Margin="25,45,0,0" Background="White">
+                <Image x:Name="character_image" HorizontalAlignment="Left" Height="115" VerticalAlignment="Top" Width="117" Margin="9,9,0,0"/>
+            </Border>
+
+            <Button x:Name="save_now2" Content="💾" HorizontalAlignment="Left" Margin="725,333,0,0" VerticalAlignment="Top" Width="36" Foreground="#FFCCCCCC" Click="save_Click" Height="34">
+                <Button.Background>
+                    <SolidColorBrush Color="#FF1F2123" Opacity="0.85"/>
+                </Button.Background>
+            </Button>
+        </Grid>
+
+    </Grid>
+</Window>

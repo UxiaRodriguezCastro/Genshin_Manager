@@ -1,0 +1,41 @@
+﻿<Window x:Class="Genshintool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Genshintool"
+        mc:Ignorable="d"
+        Title="Genshin Impact accounts manager" Height="450" Width="800" ResizeMode="NoResize">
+    <Grid Background="#FF4D6E80">
+        <Border BorderThickness="5" BorderBrush="#FF000000" HorizontalAlignment="Left" Height="261" VerticalAlignment="Top" Width="447" Margin="311,80,0,0" Background="White">
+            <Image x:Name="image_welcome" HorizontalAlignment="Left" Height="251" VerticalAlignment="Top" Width="437" Source="images\genshin_0.jpeg" Stretch="Fill"/>
+        </Border>
+
+        <Button x:Name="configurarion" Content="⚙️" HorizontalAlignment="Left" Margin="722,346,0,0" VerticalAlignment="Top" Width="36" Height="34" Foreground="#FFCCCCCC" Click="see_accounts_Click">
+            <Button.Background>
+                <SolidColorBrush Color="#FF1F2123" Opacity="0.85"/>
+            </Button.Background>
+        </Button>
+        <Grid Margin="0,0,500,0">
+            <Grid.Background>
+                <SolidColorBrush Color="White" Opacity="0.75"/>
+            </Grid.Background>
+            <Button x:Name="see_accounts" Content="See accounts" HorizontalAlignment="Left" Margin="59,185,0,0" VerticalAlignment="Top" Width="180" Height="34" Foreground="#FFCCCCCC">
+                <Button.Background>
+                    <SolidColorBrush Color="#FF1F2123" Opacity="0.85"/>
+                </Button.Background>
+            </Button>
+            <Button x:Name="add_accounts" Content="Add new" HorizontalAlignment="Left" Margin="59,249,0,0" VerticalAlignment="Top" Width="179" Height="34" Foreground="#FFCCCCCC" Click="add_accounts_Click" RenderTransformOrigin="0.154,0.412">
+                <Button.Background>
+                    <SolidColorBrush Color="#FF1F2123" Opacity="0.85"/>
+                </Button.Background>
+            </Button>
+            <Label Content="ACCOUNTS MANAGER" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="60,128,0,0" VerticalAlignment="Top" Foreground="#FF1F2123" Width="179" FontSize="14" FontWeight="Bold" FontFamily="Times New Roman" TextOptions.TextHintingMode="Fixed"/>
+            <Button x:Name="genshin_impact_page"  HorizontalAlignment="Left" Height="78" Margin="60,50,0,0" VerticalAlignment="Top" Width="179" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="genshin_impact_page_Click">
+                <Image HorizontalAlignment="Left" Height="68" VerticalAlignment="Top" Width="169" Source="images/genshinlogo.png" Stretch="Fill"/>
+
+            </Button>
+        </Grid>
+
+    </Grid>
+</Window>

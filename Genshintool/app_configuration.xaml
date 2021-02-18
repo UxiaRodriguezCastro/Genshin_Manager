@@ -1,0 +1,26 @@
+﻿<Window x:Class="Genshintool.app_configuration"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Genshintool"
+        mc:Ignorable="d"
+        Title="Genshin Impact accounts manager-Configuration" Height="450" Width="800" ResizeMode="NoResize">
+    <Grid Background="#FF4D6E80">
+        <Image HorizontalAlignment="Left" Height="421" Margin="434,0,0,0" VerticalAlignment="Top" Width="360" Source="images/paimon_conf.png" Stretch="UniformToFill" StretchDirection="UpOnly"/>
+        <Grid Margin="0,0,354,0" Opacity="0.75" Background="White">
+            <Button x:Name="return_bt" Content="⇦" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="50" Height="38" Foreground="#FFCCCCCC" Click="see_accounts_Click" FontSize="24" FontWeight="Bold">
+                <Button.Background>
+                    <SolidColorBrush Color="#FF1F2123" Opacity="0.85"/>
+                </Button.Background>
+
+            </Button>
+            <Button x:Name="delete_user_info_bt" Content="Delete my info" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="80,128,0,0" VerticalAlignment="Top" Width="278" Height="38" Foreground="#FFCCCCCC" FontSize="24" FontWeight="Bold" Click="delete_user_info_bt_Click">
+                <Button.Background>
+                    <SolidColorBrush Color="#FF1F2123" Opacity="0.85"/>
+                </Button.Background>
+
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
