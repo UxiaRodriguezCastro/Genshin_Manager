@@ -5,22 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Genshintool"
         mc:Ignorable="d"
-        Title="Genshin Impact accounts manager-Add accounts" Height="450" Width="800" ResizeMode="NoResize" Visibility="Hidden" Closing="Window_Closing">
+        Title="Genshin Impact accounts manager-Add accounts" Height="450" Width="800" ResizeMode="NoResize" Visibility="Visible" Closing="Window_Closing">
     <Window.Background>
         <ImageBrush ImageSource="images/background.png"/>
     </Window.Background>
     <Grid>
         <Menu x:Name="window_menu" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="792" Background="#FF1F2123" FontWeight="Bold">
-            <!--<Button Content="⇦" Width="42" Foreground="White" Background="#FF1F2123" BorderBrush="{x:Null}" Height="32" FontSize="18"/>-->
+            <!--<Button Content="⇦" Width="42" Foreground="White" Background="#FF1F2123" Click="exit_Click" BorderBrush="{x:Null}" Height="32" FontSize="18"/>-->
             <MenuItem x:Name="options" Header="Options" Height="32" Width="69" Foreground="White">
                 <MenuItem x:Name="save" Header="Save changes" Background="#FF1F2123" BorderBrush="Black" Click="save_Click"/>
-                <MenuItem x:Name="exit" Header="Quit without save" Click="exit_Click" Background="#FF1F2123" BorderBrush="Black"/>
+                <MenuItem x:Name="exit" Header="Quit" Click="exit_Click" Background="#FF1F2123" BorderBrush="Black"/>
             </MenuItem>
             <MenuItem x:Name="account_info_option" Header="Account info" Height="32" Width="85" Click="account_info_option_Click" Foreground="White"/>
             <MenuItem x:Name="account_characters_option" Header="Characters" Height="32" Width="80" Click="account_characters_option_Click" Foreground="White"/>
 
         </Menu>
-        <Grid x:Name="account_info_grid" Visibility="Visible" Margin="0,32,0,0">
+        <Grid x:Name="account_info_grid" Visibility="Hidden" Margin="0,32,0,0">
             <Grid.Background>
                 <SolidColorBrush Color="White" Opacity="0.75"/>
             </Grid.Background>
@@ -43,11 +43,17 @@
                 </Button.Background>
             </Button>
         </Grid>
-        <Grid x:Name="account_characters_grid" Visibility="Hidden" Margin="0,32,0,0">
+        <Grid x:Name="account_characters_grid" Visibility="Visible" Margin="0,32,0,0">
             <Grid.Background>
                 <SolidColorBrush Color="White" Opacity="0.75"/>
             </Grid.Background>
             <ListView x:Name="account_characters_list_lv" HorizontalAlignment="Left" Height="219" Margin="403,76,0,0" VerticalAlignment="Top" Width="358" SelectionChanged="account_characters_list_lv_SelectionChanged">
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="remove_account_character" Header="Remove" Click="remove_account_character_Click"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">

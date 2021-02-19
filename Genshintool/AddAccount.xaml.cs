@@ -14,7 +14,7 @@ namespace Genshintool
     /// </summary>
     public partial class AddAccount : Window
     {
-
+        #region DEFINITIONS
         MainWindow menu;
         account newaccount;
         String path;
@@ -23,33 +23,20 @@ namespace Genshintool
         List<character> charactersfour = new List<character>();
         List<account> user_accounts = new List<account>();
         Boolean isnew = true;
+        #endregion DEFINITIONS
         public AddAccount()
         {
             InitializeComponent();
             menu = new MainWindow();
             newaccount = new account();
-            path = Directory.GetCurrentDirectory();
-         
+            path = Directory.GetCurrentDirectory();      
             account_gender_cb.ItemsSource = genders;
             account_gender_cb.SelectedIndex = 0;
             newaccount.Account_gender = true;
-            if (File.Exists(path + @"\jsons\charactersfive.json") && File.Exists(path + @"\jsons\charactersfour.json"))
-            {
-                load_data_characters();
-            }
-            else
-            {
-                create_data_characters();
-                load_data_characters();
-            }
+            checkAppDataDirectory();
             character_name_cb.ItemsSource = charactersfive;
             character_name_cb.DisplayMemberPath = "Character_name";
-            if (File.Exists(path + @"\jsons\user_accounts.json"))
-            {
-                load_user_accounts();
-            }
-
-
+            checkUserDataDirectory();
 
         }
 
@@ -58,32 +45,31 @@ namespace Genshintool
         //Exit window without save
         private void exit_Click(object sender, RoutedEventArgs e)
         {
-            this.Visibility = Visibility.Hidden;
-            menu.Visibility = Visibility.Visible;
+            if (MessageBox.Show("Exit?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                if (MessageBox.Show("Save data?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    
+                    this.Visibility = Visibility.Hidden;
+                    menu.Visibility = Visibility.Visible;
+                    savenewaccountdata();
+                }
+                else
+                {
+                    this.Visibility = Visibility.Hidden;
+                    menu.Visibility = Visibility.Visible;
+                }
+
+            }
+
+            
+            
+           
         }
         //save the new account on .json
         private void save_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                newaccount.Account_name = account_name_tb.Text;
-                newaccount.Account_email = account_mail_tb.Text;
-                newaccount.Account_password = account_pass_tb.Text;
-                newaccount.Account_world_level = int.Parse(account_worldlevel_tb.Text);
-                newaccount.Account_description = account_desc_tb.Text;
-                user_accounts.Add(newaccount);
-                var json = JsonConvert.SerializeObject(user_accounts);
-                File.WriteAllText(path + @"\jsons\user_accounts.json", json);
-                MessageBox.Show("Account created", "INFORMATION", MessageBoxButton.OK, MessageBoxImage.Information);
-                cleancharacterinfo();
-                create_newaccount();
-            }
-            catch (Exception)
-            {
-
-                MessageBox.Show("Something were wrong", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            }
+            savenewaccountdata();
         }
 
         //show info grid
@@ -114,7 +100,7 @@ namespace Genshintool
             }
         }
 
-        #endregion
+        #endregion ACCOUNT
 
         #region CHARACTERS
         //show characters grid
@@ -217,17 +203,25 @@ namespace Genshintool
                             {
                                 MyItem myitem = account_characters_list_lv.SelectedItem as MyItem;
                                 string delete_this = myitem.Name;
-                                b=newaccount.Account_characters.Find(x=> x.Character_name==delete_this);
-                                newaccount.Account_characters.Remove(b);
-                                new_character.Character_name = name;
-                                new_character.Character_level = lvl;
-                                new_character.Character_constelation = constella;
-                                newaccount.Account_characters.Add(new_character);
-                                cleancharacterinfo();
+                                b = newaccount.Account_characters.Find(x => x.Character_name == delete_this);
+                                character c = newaccount.Account_characters.Find(x => x.Character_name == name);
+                                if (c == null)
+                                {
+                                    newaccount.Account_characters.Remove(b);
+                                    new_character.Character_name = name;
+                                    new_character.Character_level = lvl;
+                                    new_character.Character_constelation = constella;
+                                    newaccount.Account_characters.Add(new_character);
+                                    cleancharacterinfo();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("The character was already added","ERROR",MessageBoxButton.OK, MessageBoxImage.Error);
+                                }
                             }
                             else
                             {
-                                MessageBox.Show("The character was already added", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBox.Show("The character was already added", "ERROR", MessageBoxButton.OK,MessageBoxImage.Error);
 
                             }
                         }
@@ -282,12 +276,21 @@ namespace Genshintool
                                 MyItem myitem = account_characters_list_lv.SelectedItem as MyItem;
                                 string delete_this = myitem.Name;
                                 b = newaccount.Account_characters.Find(x => x.Character_name == delete_this);
-                                newaccount.Account_characters.Remove(b);
-                                new_character.Character_name = name;
-                                new_character.Character_level = lvl;
-                                new_character.Character_constelation = constella;
-                                newaccount.Account_characters.Add(new_character);
-                                cleancharacterinfo();
+                                character c = newaccount.Account_characters.Find(x => x.Character_name == name);
+                                if (c!=null)
+                                {
+                                    newaccount.Account_characters.Remove(b);
+                                    new_character.Character_name = name;
+                                    new_character.Character_level = lvl;
+                                    new_character.Character_constelation = constella;
+                                    newaccount.Account_characters.Add(new_character);
+                                    cleancharacterinfo();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("The character was already added", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                                }
+
                             }
                             else
                             {
@@ -325,6 +328,7 @@ namespace Genshintool
                 BitmapImage bitmap = new BitmapImage(new Uri("./images/" + item.Character_name + ".png", UriKind.Relative));
                 this.account_characters_list_lv.Items.Add(new MyItem { Icon = bitmap, Name = item.Character_name, Level = "Level:" + item.Character_level, Constellation = "Constellation:" + item.Character_constelation });
             }
+            cleancharacterinfo();
         }
 
         //delete character info from textboxes
@@ -403,7 +407,7 @@ namespace Genshintool
             }
 
         }
-        #endregion
+        #endregion CHARACTERS
 
 
         #region METHODS
@@ -412,9 +416,9 @@ namespace Genshintool
         private void load_data_characters()
         {
 
-            string outputJSON = File.ReadAllText(path + @"\jsons\charactersfive.json");
+            string outputJSON = File.ReadAllText(path + @"\jsons\AppData\charactersfive.json");
             charactersfive = JsonConvert.DeserializeObject<List<character>>(outputJSON);
-            string outputJSON2 = File.ReadAllText(path + @"\jsons\charactersfour.json");
+            string outputJSON2 = File.ReadAllText(path + @"\jsons\AppData\charactersfour.json");
             charactersfour = JsonConvert.DeserializeObject<List<character>>(outputJSON2);
 
         }
@@ -422,7 +426,7 @@ namespace Genshintool
         private void load_user_accounts()
         {
 
-            string outputJSON = File.ReadAllText(path + @"\jsons\user_accounts.json");
+            string outputJSON = File.ReadAllText(path + @"\jsons\UserData\user_accounts.json");
             user_accounts = JsonConvert.DeserializeObject<List<account>>(outputJSON);
            
 
@@ -452,10 +456,11 @@ namespace Genshintool
             charactersfour.Add(new character { Character_name = "Barbara", Character_constelation = 0, Character_level = 1 });
             charactersfour.Add(new character { Character_name = "Razor", Character_constelation = 0, Character_level = 1 });
             var json = JsonConvert.SerializeObject(charactersfive);
-            File.WriteAllText(path + @"\jsons\charactersfive.json", json);
+            File.WriteAllText(path + @"\jsons\AppData\charactersfive.json", json);
             var json2 = JsonConvert.SerializeObject(charactersfour);
-            File.WriteAllText(path + @"\jsons\charactersfour.json", json2);
+            File.WriteAllText(path + @"\jsons\AppData\charactersfour.json", json2);
         }
+        //create new character
         public void cleancharacterinfo()
         {
             character_name_cb.SelectedIndex = 0;
@@ -464,11 +469,111 @@ namespace Genshintool
             isnew = true;
             account_characters_list_lv.UnselectAll();
         }
+        //check for App Data directory(characters in game)
+        public void checkAppDataDirectory()
+        {
+            if (Directory.Exists(path + @"\jsons\AppData"))
+            {
+                if (File.Exists(path + @"\jsons\AppData\charactersfive.json") &&
+                File.Exists(path + @"\jsons\AppData\charactersfour.json"))
+                {
+                    try
+                    {
+                        load_data_characters();
+                    }
+                    catch (Exception)
+                    {
 
+                        throw;
+                    }
+                   
+                }
+                else
+                {
+                    try
+                    {
+                        create_data_characters();
+                        load_data_characters();
+                    }
+                    catch (Exception)
+                    {
 
+                        throw;
+                    }
+                    
+                }
+            }
+            else
+            {
+                try
+                {
+                    Directory.CreateDirectory(path + @"\jsons\AppData");
+                    create_data_characters();
+                    load_data_characters();
+                }
+                catch (Exception)
+                {
 
+                    throw;
+                }
+            }
+        }
+        //check for User Data directory(accounts)
+        public void checkUserDataDirectory()
+        {
+            if (Directory.Exists(path + @"\jsons\UserData"))
+            {
+                try
+                {
+                    if (File.Exists(path + @"\jsons\UserData\user_accounts.json"))
+                    {
+                        load_user_accounts();
+                    }
+                }
+                catch (Exception)
+                {
 
-        #endregion
+                    throw;
+                }
+            }
+            else
+            {
+                try
+                {
+                    Directory.CreateDirectory(path + @"\jsons\UserData");
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+        }
+
+        public void savenewaccountdata()
+        {
+            try
+            {
+                newaccount.Account_name = account_name_tb.Text;
+                newaccount.Account_email = account_mail_tb.Text;
+                newaccount.Account_password = account_pass_tb.Text;
+                newaccount.Account_world_level = int.Parse(account_worldlevel_tb.Text);
+                newaccount.Account_description = account_desc_tb.Text;
+                user_accounts.Add(newaccount);
+                var json = JsonConvert.SerializeObject(user_accounts);
+                File.WriteAllText(path + @"\jsons\UserData\user_accounts.json", json);
+                MessageBox.Show("Account created", "INFORMATION", MessageBoxButton.OK, MessageBoxImage.Information);
+                cleancharacterinfo();
+                create_newaccount();
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Something were wrong", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+        }
+        #endregion METHODS
 
 
 
@@ -479,6 +584,25 @@ namespace Genshintool
                
         }
 
-
+        private void remove_account_character_Click(object sender, RoutedEventArgs e)
+        {
+            if (account_characters_list_lv.SelectedItems.Count>0)
+            {
+                Console.WriteLine("DELETE");
+                if (MessageBox.Show("Delete character?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    MyItem obj = account_characters_list_lv.SelectedItems[0] as MyItem;
+                    character character=newaccount.Account_characters.Find(x=> x.Character_name==obj.Name);
+                    newaccount.Account_characters.Remove(character);
+                    this.account_characters_list_lv.Items.Clear();
+                    foreach (var item in newaccount.Account_characters)
+                    {
+                        BitmapImage bitmap = new BitmapImage(new Uri("./images/" + item.Character_name + ".png", UriKind.Relative));
+                        this.account_characters_list_lv.Items.Add(new MyItem { Icon = bitmap, Name = item.Character_name, Level = "Level:" + item.Character_level, Constellation = "Constellation:" + item.Character_constelation });
+                    }
+                    cleancharacterinfo();
+                }
+            }
+        }
     }
 }

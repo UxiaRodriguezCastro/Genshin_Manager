@@ -21,22 +21,24 @@ namespace Genshintool
     /// </summary>
     public partial class app_configuration : Window
     {
+        #region METHODS
         String path;
         MainWindow menu;
         List<account> user_accounts;
+        #endregion METHODS
         public app_configuration()
         {
             InitializeComponent();
             menu = new MainWindow();
             path = Directory.GetCurrentDirectory();
         }
-
+        //Go to menu
         private void see_accounts_Click(object sender, RoutedEventArgs e)
         {
             this.Visibility=Visibility.Hidden;
             menu.Visibility = Visibility.Visible;
         }
-
+        //delete all user data
         private void delete_user_info_bt_Click(object sender, RoutedEventArgs e)
         {
             
@@ -44,12 +46,13 @@ namespace Genshintool
             {
                 user_accounts = new List<account>();
                 var json = JsonConvert.SerializeObject(user_accounts);
-                File.WriteAllText(path + @"\jsons\user_accounts.json", json);
+                File.WriteAllText(path + @"\jsons\UserData\user_accounts.json", json);
                 MessageBox.Show("Deleted all accounts info","",MessageBoxButton.OK,MessageBoxImage.Information);
             }
 
 
         }
+        //go to menu
         private void Window_Closed(object sender, EventArgs e)
         {
             this.Visibility = Visibility.Hidden;
