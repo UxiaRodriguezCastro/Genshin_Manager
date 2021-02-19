@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Genshintool"
         mc:Ignorable="d"
-        Title="Genshin Impact accounts manager" Height="450" Width="800" ResizeMode="NoResize">
+        Title="Genshin Impact accounts manager" Height="450" Width="800" ResizeMode="NoResize" Closing="Window_Closing">
     <Grid Background="#FF4D6E80">
         <Border BorderThickness="5" BorderBrush="#FF000000" HorizontalAlignment="Left" Height="261" VerticalAlignment="Top" Width="447" Margin="311,80,0,0" Background="White">
             <Image x:Name="image_welcome" HorizontalAlignment="Left" Height="251" VerticalAlignment="Top" Width="437" Source="images\genshin_0.jpeg" Stretch="Fill"/>

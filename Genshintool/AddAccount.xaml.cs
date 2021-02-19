@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -57,8 +58,8 @@ namespace Genshintool
         //Exit window without save
         private void exit_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-            menu.Show();
+            this.Visibility = Visibility.Hidden;
+            menu.Visibility = Visibility.Visible;
         }
         //save the new account on .json
         private void save_Click(object sender, RoutedEventArgs e)
@@ -466,8 +467,18 @@ namespace Genshintool
 
 
 
+
         #endregion
 
-        
+
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+           
+          menu.Window_Closing(sender,e);
+               
+        }
+
+
     }
 }

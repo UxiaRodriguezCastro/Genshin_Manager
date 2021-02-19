@@ -34,16 +34,16 @@ namespace Genshintool
         private void see_accounts_Click(object sender, RoutedEventArgs e)
         {
             app_config = new app_configuration();
-            this.Close();
-            app_config.Show();
+            this.Visibility=Visibility.Hidden;
+            app_config.Visibility= Visibility.Visible;
         }
 
         private void add_accounts_Click(object sender, RoutedEventArgs e)
         {
-            close = false;
+           
             add_window = new AddAccount();
-            this.Close();
-            add_window.Show();
+            this.Visibility = Visibility.Hidden;
+            add_window.Visibility = Visibility.Visible;
 
 
         }
@@ -53,6 +53,19 @@ namespace Genshintool
             System.Diagnostics.Process.Start("https://genshin.mihoyo.com/en/home");
         }
 
-      
+
+
+        public void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (MessageBox.Show("Close tool?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                Environment.Exit(0);
+
+            }
+        }
     }
 }

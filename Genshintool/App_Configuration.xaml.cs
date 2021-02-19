@@ -33,8 +33,8 @@ namespace Genshintool
 
         private void see_accounts_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-            menu.Show();
+            this.Visibility=Visibility.Hidden;
+            menu.Visibility = Visibility.Visible;
         }
 
         private void delete_user_info_bt_Click(object sender, RoutedEventArgs e)
@@ -49,6 +49,11 @@ namespace Genshintool
             }
 
 
+        }
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            this.Visibility = Visibility.Hidden;
+            menu.Visibility = Visibility.Visible;
         }
     }
 }

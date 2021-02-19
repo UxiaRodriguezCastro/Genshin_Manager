@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Genshintool"
         mc:Ignorable="d"
-        Title="Genshin Impact accounts manager-Configuration" Height="450" Width="800" ResizeMode="NoResize">
+        Title="Genshin Impact accounts manager-Configuration" Height="450" Width="800" ResizeMode="NoResize" Visibility="Hidden" Closed="Window_Closed">
     <Grid Background="#FF4D6E80">
         <Image HorizontalAlignment="Left" Height="421" Margin="434,0,0,0" VerticalAlignment="Top" Width="360" Source="images/paimon_conf.png" Stretch="UniformToFill" StretchDirection="UpOnly"/>
         <Grid Margin="0,0,354,0" Opacity="0.75" Background="White">

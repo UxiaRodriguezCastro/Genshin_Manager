@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Genshintool"
         mc:Ignorable="d"
-        Title="Genshin Impact accounts manager-Add accounts" Height="450" Width="800" ResizeMode="NoResize">
+        Title="Genshin Impact accounts manager-Add accounts" Height="450" Width="800" ResizeMode="NoResize" Visibility="Hidden" Closing="Window_Closing">
     <Window.Background>
         <ImageBrush ImageSource="images/background.png"/>
     </Window.Background>
