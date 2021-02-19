@@ -20,7 +20,7 @@
             <MenuItem x:Name="account_characters_option" Header="Characters" Height="32" Width="80" Click="account_characters_option_Click" Foreground="White"/>
 
         </Menu>
-        <Grid x:Name="account_info_grid" Visibility="Hidden" Margin="0,32,0,0">
+        <Grid x:Name="account_info_grid" Visibility="Visible" Margin="0,32,0,0">
             <Grid.Background>
                 <SolidColorBrush Color="White" Opacity="0.75"/>
             </Grid.Background>
@@ -43,7 +43,7 @@
                 </Button.Background>
             </Button>
         </Grid>
-        <Grid x:Name="account_characters_grid" Visibility="Visible" Margin="0,32,0,0">
+        <Grid x:Name="account_characters_grid" Visibility="Hidden" Margin="0,32,0,0">
             <Grid.Background>
                 <SolidColorBrush Color="White" Opacity="0.75"/>
             </Grid.Background>

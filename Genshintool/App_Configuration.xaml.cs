@@ -58,5 +58,11 @@ namespace Genshintool
             this.Visibility = Visibility.Hidden;
             menu.Visibility = Visibility.Visible;
         }
+
+        private void Report_problem_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/UxiaRodriguezCastro/Genshin_Manager/issues");
+      
+        }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Genshintool"
         mc:Ignorable="d"
-        Title="Genshin Impact accounts manager-Configuration" Height="450" Width="800" ResizeMode="NoResize" Visibility="Hidden" Closed="Window_Closed">
+        Title="Genshin Impact accounts manager-Configuration" Height="450" Width="800" ResizeMode="NoResize" Visibility="Visible" Closed="Window_Closed">
     <Grid Background="#FF4D6E80">
         <Image HorizontalAlignment="Left" Height="421" Margin="434,0,0,0" VerticalAlignment="Top" Width="360" Source="images/paimon_conf.png" Stretch="UniformToFill" StretchDirection="UpOnly"/>
         <Grid Margin="0,0,354,0" Opacity="0.75" Background="White">
@@ -15,7 +15,19 @@
                 </Button.Background>
 
             </Button>
-            <Button x:Name="delete_user_info_bt" Content="Delete my info" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="80,128,0,0" VerticalAlignment="Top" Width="278" Height="38" Foreground="#FFCCCCCC" FontSize="24" FontWeight="Bold" Click="delete_user_info_bt_Click">
+            <Button x:Name="delete_user_info_bt" Content="Delete my info" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="80,122,0,0" VerticalAlignment="Top" Width="278" Height="38" Foreground="#FFCCCCCC" FontSize="24" FontWeight="Bold" Click="delete_user_info_bt_Click">
+                <Button.Background>
+                    <SolidColorBrush Color="#FF1F2123" Opacity="0.85"/>
+                </Button.Background>
+
+            </Button>
+            <Button x:Name="Restore_user_data" Content="Restore data" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="80,181,0,0" VerticalAlignment="Top" Width="278" Height="38" Foreground="#FFCCCCCC" FontSize="24" FontWeight="Bold" IsEnabled="False">
+                <Button.Background>
+                    <SolidColorBrush Color="#FF1F2123" Opacity="0.85"/>
+                </Button.Background>
+
+            </Button>
+            <Button x:Name="Report_problem" Content="Report problem" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="80,242,0,0" VerticalAlignment="Top" Width="278" Height="38" Foreground="#FFCCCCCC" FontSize="24" FontWeight="Bold" Click="Report_problem_Click">
                 <Button.Background>
                     <SolidColorBrush Color="#FF1F2123" Opacity="0.85"/>
                 </Button.Background>

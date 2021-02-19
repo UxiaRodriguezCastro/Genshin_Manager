@@ -111,6 +111,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="images\jsons\AppData\charactersfive.json" />
+    <None Include="images\jsons\AppData\charactersfour.json" />
+    <None Include="images\jsons\UserData\user_accounts.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -128,25 +131,6 @@
     <Resource Include="images\traveler_male.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\Venti.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\Xiao.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\Ganyu.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\Diluc.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\Barbara.png" />
-    <Resource Include="images\Chongyun.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\Razor.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="images\background.png" />
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +141,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Five_stars\Diluc.png" />
+    <Resource Include="images\Five_stars\Ganyu.png" />
+    <Resource Include="images\Five_stars\Venti.png" />
+    <Resource Include="images\Five_stars\Xiao.png" />
+    <Resource Include="images\Four_stars\Barbara.png" />
+    <Resource Include="images\Four_stars\Chongyun.png" />
+    <Resource Include="images\Four_stars\Razor.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

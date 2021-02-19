@@ -47,18 +47,31 @@ namespace Genshintool
         {
             if (MessageBox.Show("Exit?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                if (MessageBox.Show("Save data?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                if (account_characters_list_lv.Items.Count>0||
+                    account_name_tb.Text!=""||
+                    account_pass_tb.Text != "" ||
+                    account_mail_tb.Text!= "" ||
+                    account_worldlevel_tb.Text!="")
                 {
-                    
-                    this.Visibility = Visibility.Hidden;
-                    menu.Visibility = Visibility.Visible;
-                    savenewaccountdata();
+                    if (MessageBox.Show("Save data?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                    {
+
+                        this.Visibility = Visibility.Hidden;
+                        menu.Visibility = Visibility.Visible;
+                        savenewaccountdata();
+                    }
+                    else
+                    {
+                        this.Visibility = Visibility.Hidden;
+                        menu.Visibility = Visibility.Visible;
+                    }
                 }
                 else
                 {
                     this.Visibility = Visibility.Hidden;
                     menu.Visibility = Visibility.Visible;
                 }
+
 
             }
 
@@ -113,6 +126,38 @@ namespace Genshintool
             }
         }
 
+        private void remove_account_character_Click(object sender, RoutedEventArgs e)
+        {
+            if (account_characters_list_lv.SelectedItems.Count==1)
+            {
+                Console.WriteLine("DELETE");
+                if (MessageBox.Show("Delete character?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    MyItem obj = account_characters_list_lv.SelectedItems[0] as MyItem;
+                    character character = newaccount.Account_characters.Find(x => x.Character_name == obj.Name);
+                    newaccount.Account_characters.Remove(character);
+                    this.account_characters_list_lv.Items.Clear();
+                    foreach (var item in newaccount.Account_characters)
+                    {
+
+                        character is5 = charactersfive.Find(x => x.Character_name == item.Character_name);
+                        if (is5 != null)
+                        {
+                            BitmapImage bitmap = new BitmapImage(new Uri("./images/Five_stars/" + item.Character_name + ".png", UriKind.Relative));
+                            this.account_characters_list_lv.Items.Add(new MyItem { Icon = bitmap, Name = item.Character_name, Level = "Level:" + item.Character_level, Constellation = "Constellation:" + item.Character_constelation });
+                        }
+                        else
+                        {
+
+                            BitmapImage bitmap = new BitmapImage(new Uri("./images/Four_stars/" + item.Character_name + ".png", UriKind.Relative));
+                            this.account_characters_list_lv.Items.Add(new MyItem { Icon = bitmap, Name = item.Character_name, Level = "Level:" + item.Character_level, Constellation = "Constellation:" + item.Character_constelation });
+                        }
+                    }
+                    cleancharacterinfo();
+                }
+            }
+        }
+
         //select image for character
         private void character_name_cb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -120,13 +165,13 @@ namespace Genshintool
             {
                 try
                 {
-                    BitmapImage image = new BitmapImage(new Uri("./images/" + charactersfive[character_name_cb.SelectedIndex].Character_name + ".png", UriKind.Relative));
+                    BitmapImage image = new BitmapImage(new Uri("./images/Five_stars/" + charactersfive[character_name_cb.SelectedIndex].Character_name + ".png", UriKind.Relative));
                     character_image.Source = image;
                 }
                 catch (Exception)
                 {
 
-                    BitmapImage image = new BitmapImage(new Uri("./images/" + charactersfive[0].Character_name + ".png", UriKind.Relative));
+                    BitmapImage image = new BitmapImage(new Uri("./images/Five_stars/" + charactersfive[0].Character_name + ".png", UriKind.Relative));
                     character_image.Source = image;
                 }
 
@@ -135,13 +180,13 @@ namespace Genshintool
             {
                 try
                 {
-                    BitmapImage image = new BitmapImage(new Uri("./images/" + charactersfour[character_name_cb.SelectedIndex].Character_name + ".png", UriKind.Relative));
+                    BitmapImage image = new BitmapImage(new Uri("./images/Four_stars/" + charactersfour[character_name_cb.SelectedIndex].Character_name + ".png", UriKind.Relative));
                     character_image.Source = image;
                 }
                 catch (Exception)
                 {
 
-                    BitmapImage image = new BitmapImage(new Uri("./images/" + charactersfour[0].Character_name + ".png", UriKind.Relative));
+                    BitmapImage image = new BitmapImage(new Uri("./images/Four_stars/" + charactersfour[0].Character_name + ".png", UriKind.Relative));
                     character_image.Source = image;
                 }
 
@@ -277,7 +322,7 @@ namespace Genshintool
                                 string delete_this = myitem.Name;
                                 b = newaccount.Account_characters.Find(x => x.Character_name == delete_this);
                                 character c = newaccount.Account_characters.Find(x => x.Character_name == name);
-                                if (c!=null)
+                                if (c==null)
                                 {
                                     newaccount.Account_characters.Remove(b);
                                     new_character.Character_name = name;
@@ -325,8 +370,19 @@ namespace Genshintool
             this.account_characters_list_lv.Items.Clear();
             foreach (var item in newaccount.Account_characters)
             {
-                BitmapImage bitmap = new BitmapImage(new Uri("./images/" + item.Character_name + ".png", UriKind.Relative));
-                this.account_characters_list_lv.Items.Add(new MyItem { Icon = bitmap, Name = item.Character_name, Level = "Level:" + item.Character_level, Constellation = "Constellation:" + item.Character_constelation });
+
+                character is5 = charactersfive.Find(x => x.Character_name == item.Character_name);
+                if (is5!=null)
+                {
+                    BitmapImage bitmap = new BitmapImage(new Uri("./images/Five_stars/" + item.Character_name + ".png", UriKind.Relative));
+                    this.account_characters_list_lv.Items.Add(new MyItem { Icon = bitmap, Name = item.Character_name, Level = "Level:" + item.Character_level, Constellation = "Constellation:" + item.Character_constelation });
+                }
+                else
+                {
+
+                    BitmapImage bitmap = new BitmapImage(new Uri("./images/Four_stars/" + item.Character_name + ".png", UriKind.Relative));
+                    this.account_characters_list_lv.Items.Add(new MyItem { Icon = bitmap, Name = item.Character_name, Level = "Level:" + item.Character_level, Constellation = "Constellation:" + item.Character_constelation });
+                }
             }
             cleancharacterinfo();
         }
@@ -350,7 +406,7 @@ namespace Genshintool
                     b = charactersfour.Find(x => x.Character_name == obj.Name);
                     if (b != null)
                     {
-                        BitmapImage image = new BitmapImage(new Uri("./images/" + obj.Name + ".png", UriKind.Relative));
+                        BitmapImage image = new BitmapImage(new Uri("./images/Four_stars/" + obj.Name + ".png", UriKind.Relative));
                         character_image.Source = image;
                         String[] parts = obj.Level.Split(':');
                         String[] parts2 = obj.Constellation.Split(':');
@@ -379,7 +435,7 @@ namespace Genshintool
                 }
                 else
                 {
-                    BitmapImage image = new BitmapImage(new Uri("./images/" + obj.Name + ".png", UriKind.Relative));
+                    BitmapImage image = new BitmapImage(new Uri("./images/Five_stars/" + obj.Name + ".png", UriKind.Relative));
                     character_image.Source = image;
                     String[] parts = obj.Level.Split(':');
                     String[] parts2 = obj.Constellation.Split(':');
@@ -446,6 +502,8 @@ namespace Genshintool
         //characters data from game to .json
         private void create_data_characters()
         {
+
+            
             charactersfive = new List<character>();
             charactersfive.Add(new character { Character_name = "Venti", Character_constelation = 0, Character_level = 1 });
             charactersfive.Add(new character { Character_name = "Diluc", Character_constelation = 0, Character_level = 1 });
@@ -557,7 +615,15 @@ namespace Genshintool
                 newaccount.Account_name = account_name_tb.Text;
                 newaccount.Account_email = account_mail_tb.Text;
                 newaccount.Account_password = account_pass_tb.Text;
-                newaccount.Account_world_level = int.Parse(account_worldlevel_tb.Text);
+                try
+                {
+                    newaccount.Account_world_level = int.Parse(account_worldlevel_tb.Text);
+                }
+                catch (Exception)
+                {
+
+                    newaccount.Account_world_level = 1;
+                }
                 newaccount.Account_description = account_desc_tb.Text;
                 user_accounts.Add(newaccount);
                 var json = JsonConvert.SerializeObject(user_accounts);
@@ -584,25 +650,6 @@ namespace Genshintool
                
         }
 
-        private void remove_account_character_Click(object sender, RoutedEventArgs e)
-        {
-            if (account_characters_list_lv.SelectedItems.Count>0)
-            {
-                Console.WriteLine("DELETE");
-                if (MessageBox.Show("Delete character?", "", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
-                {
-                    MyItem obj = account_characters_list_lv.SelectedItems[0] as MyItem;
-                    character character=newaccount.Account_characters.Find(x=> x.Character_name==obj.Name);
-                    newaccount.Account_characters.Remove(character);
-                    this.account_characters_list_lv.Items.Clear();
-                    foreach (var item in newaccount.Account_characters)
-                    {
-                        BitmapImage bitmap = new BitmapImage(new Uri("./images/" + item.Character_name + ".png", UriKind.Relative));
-                        this.account_characters_list_lv.Items.Add(new MyItem { Icon = bitmap, Name = item.Character_name, Level = "Level:" + item.Character_level, Constellation = "Constellation:" + item.Character_constelation });
-                    }
-                    cleancharacterinfo();
-                }
-            }
-        }
+    
     }
 }
