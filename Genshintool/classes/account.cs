@@ -9,6 +9,7 @@ namespace Genshintool
 {
     public class account
     {
+        //account
         private String account_name;
         private int account_world_level;
         private bool account_gender;
